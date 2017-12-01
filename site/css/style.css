@@ -109,7 +109,7 @@ button {
 
 .intersection {
 	display: inline-block;
-	border: 1px solid blue;
+	border: 1px solid transparent;
 	width: 40px;
 	height: 40px;
 
