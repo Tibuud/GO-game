@@ -85,8 +85,9 @@ function prepareEventHandlers() {
 		} else { player_active = player_1;}
 		compteurTourPasse += 1;
 		if (compteurTourPasse == 2) {
-			notification.innerText = "Fin de la partie ! Comptez vos points";
-			console.log("coucou");
+			notification.innerText = "Fin de la partie ! Comptez vos points," + 
+			player_1.player_name + " a capturé " + player_1.capture + " pions. " + 
+			player_2.player_name + " a capturé " + player_2.capture + " pions.";
 			pass_button.style.display = "none";
 			for (let u = 0 ; u < 19 ; u++) {
 				for (let h = 0; h < 19 ; h++) {
@@ -342,6 +343,7 @@ function prepareEventHandlers() {
 
 		document.getElementById("area_" + area[0] + "-" + area[1] ).classList.remove(dotSuppress);
 		grid[area[0]][area[1]] = "";
+		player_active.capture+=1;
 
 		let check_right = undefined;
 		if (!(area[0]+1 > 18)) {

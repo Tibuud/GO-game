@@ -101,17 +101,17 @@ button {
 	background-size: cover;
 	width: 800px;
 	height: 800px;
-	padding-top: 6px;
+	padding-top: 8px;
 	padding-bottom: 6px;
-	padding-left: 6px;
+	padding-left: 7px;
 
 }
 
 .intersection {
 	display: inline-block;
-	border: 1px solid transparent;
+	border: 1px solid blue;
 	width: 40px;
-	height: 37px;
+	height: 40px;
 
 }
 .container {
@@ -143,4 +143,12 @@ button {
 	top: 300px;
 	margin: auto;
 	display: none;
+}
+
+.lignes {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
 }
