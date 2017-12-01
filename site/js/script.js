@@ -1,9 +1,9 @@
-// window.onload = function() {
-// 	prepareEventHandlers();
-// }
+window.onload = function() {
+	prepareEventHandlers();
+}
 
-// function prepareEventHandlers() {
-	//On nommera "W" et "B" les cases au fur et à mesure de l'occupation
+function prepareEventHandlers() {
+
 
 
 	let grid = [	
@@ -45,8 +45,9 @@
 	let player_1 = new Player("player_1", "B","black_dot");
 	let player_2 = new Player("player_2", "W","white_dot",7.5);
 	let player_active = player_1;
-
+	let compteurTourPasse = 0;
 	let notification = document.getElementById('notification');
+	let pass_button = document.getElementById('pass_button');
 
 	button.addEventListener('click', creationPartie, false);
 
@@ -64,6 +65,8 @@
 		}
 		board_game.innerHTML = board_game_areas;
 		notification.innerText = "Au tour de " + player_active.player_name;
+		pass_button.style.display = "block";
+		pass_button.addEventListener('click', tourPasse, false);
 		activationCases();
 
 	}
@@ -74,6 +77,24 @@
 				document.getElementById("area_" + u + "-" + h ).addEventListener('click', phaseDeJeu, false);
 			}
 		}
+	}
+
+	function tourPasse() {
+		if (player_active == player_1) {
+			player_active = player_2;
+		} else { player_active = player_1;}
+		compteurTourPasse += 1;
+		if (compteurTourPasse == 2) {
+			notification.innerText = "Fin de la partie ! Comptez vos points";
+			console.log("coucou");
+			pass_button.style.display = "none";
+			for (let u = 0 ; u < 19 ; u++) {
+				for (let h = 0; h < 19 ; h++) {
+					document.getElementById("area_" + u + "-" + h ).removeEventListener('click', phaseDeJeu, false);
+				}
+			}
+		} else {notification.innerText = "Au tour de " + player_active.player_name;}
+		
 	}
 
 	function phaseDeJeu() {
@@ -88,7 +109,7 @@
 			clicked_area = [this.getAttribute("id")[5]+this.getAttribute("id")[6],this.getAttribute("id")[8]];
 		}
 		clicked_area = [Number(clicked_area[0]),Number(clicked_area[1])];
-
+		compteurTourPasse = 0;
 
 		// for (let u = 0 ; u < 19 ; u++) {
 		// 	for (let h = 0; h < 19 ; h++) {
@@ -411,8 +432,8 @@
 
 
 
-//FIN DU PROGRAMME	
-// }
+	
+}
 
 
 

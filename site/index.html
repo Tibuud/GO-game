@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<title>Jeux de Go</title>
-	<meta charset="UTF-8">
-<!-- 	REMONTER LE SCRIPT A LA FIN -->
-	<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-	<header>
-		<h1>Jeu de GO 2017</h1>
-		<nav>
-			<ul>
-				<li><button id="launch_2_players">Jouer | 2 Joueurs</button></li>
-			</ul>
-		</nav>
-	</header>
-	<main>
-		<div id="board_game">
-		</div>
-		<div id="notification"></div>
-	</main>
-</body>
-	<script type="text/javascript" src="js/script.js"></script>
+	<head>
+		<title>Jeux de Go</title>
+		<meta charset="UTF-8">
+		<!-- 	REMONTER LE SCRIPT A LA FIN -->
+		<link rel="stylesheet" href="css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Spectral+SC" rel="stylesheet">
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<body>
+		<header>
+			<h1>Jeu de GO 2017</h1>
+			<nav>
+				<ul>
+					<li><button id="launch_2_players">Jouer | 2 Joueurs</button></li>
+					<li><button id="launch_1_player">Jouer | 1 Joueur (en développement)</button></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="container">
+				<div id="board_game"></div>
+				<div id="notification"></div>
+				<button id="pass_button">Passer</button>
+			</div>
+		</main>
+	</body>
+	
 </html>

@@ -50,17 +50,53 @@ table {
 /*GENERAL*/
 
 body {
+	color: #FFFFF2;
+	background-color: #24292E;
+	width: 1200px;
+	margin: auto;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
-header {
-	font-size: 30px;
+
+
+h1 {
+	text-align: center;
+	font-family: 'Spectral SC', serif;
+	font-size: 50px;
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+
+ul {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	margin: auto;
+	padding-bottom: 20px;
+}
+
+button {
+	font-size: 20px;
+	height: 40px;
+	font-family: 'Spectral SC', serif;
+	background-color: #FFFFFF;
+	border-radius: 15px;
+	margin-right: 20px;
+	margin-left: 20px;
+	padding-right: 10px;
+
 }
 
 #board_game {
+	border: green solid 1px;
+	margin: auto;
 	background: url(img/Blank_Go_board.png) no-repeat;
 	background-size: cover;
 	width: 800px;
@@ -75,11 +111,19 @@ header {
 	display: inline-block;
 	border: 1px solid transparent;
 	width: 40px;
-	height:  37px;
+	height: 37px;
 
+}
+.container {
+	position: relative;
 }
 
 #notification {
+	position: absolute;
+	left: -100px;
+	top: 250px;
+	text-align: center;
+	margin: auto;
 	font-size: 30px;
 }
 
@@ -91,4 +135,12 @@ header {
 .white_dot {
 	background-color: white;
 	border-radius: 25px;
+}
+
+#pass_button {
+	position: absolute;
+	left: -100px;
+	top: 300px;
+	margin: auto;
+	display: none;
 }
