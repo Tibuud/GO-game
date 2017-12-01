@@ -94,8 +94,7 @@
 		// 	for (let h = 0; h < 19 ; h++) {
 		// 		document.getElementById("area_" + u + "-" + h ).removeEventListener('click', round_game, false);
 		// 	}
-		let directionCondamn = isCondamOpposition(clicked_area,grid);
-		console.log(directionCondamn);
+		let directionCondamn = isCondamnOpposition(clicked_area,grid);
 		if(!(isEmpty(clicked_area))) {
 			return alert("Coup impossible");
 		} else if (directionCondamn != "    " ) {
@@ -126,8 +125,8 @@
 	}
 
 	function isCondamn(area, gridTest1) {
+		let gridTest = clone(gridTest1);
 
-		let gridTest = JSON.parse(JSON.stringify(gridTest1));
 
 
 		gridTest[area[0]][area[1]] = player_active.color + "check";
@@ -179,7 +178,7 @@
 		return true;
 	}
 
-	function isCondamOpposition(area, grid) {
+	function isCondamnOpposition(area, grid) {
 
 
 		let check_right = undefined;
@@ -206,10 +205,9 @@
 		if (player_active.color == "W") {
 			colorCheck ="B";
 		}
-		// console.log(colorCheck);
+		
 
 		let directionCondamn = "";
-		// console.log("  right " + check_right + "  left " + check_left + "  down " + check_down + "  up " + check_up)
 		if (check_right == colorCheck) {
 			 if (isCondamnOpposite2([area[0]+1,area[1]],area,grid) == true) {
 			 	directionCondamn += "R";
@@ -235,38 +233,34 @@
 
 	function isCondamnOpposite2(area, exArea, gridTest1) {
 
-		let gridTest2 = JSON.parse(JSON.stringify(gridTest1));
+		let gridTest2 = clone(gridTest1);
 		let colorCheck1 ="W";
 		if (player_active.color == "W") {
 			colorCheck1 ="B"; 
 		}
-		console.log(colorCheck1);
+
 		gridTest2[exArea[0]][exArea[1]] = player_active.color + "check";
 		gridTest2[area[0]][area[1]] = colorCheck1 + "check";
-		// console.log(gridTest2);
+		
 
 		let check_right = undefined;
 		if (!(area[0]+1 > 18)) {
 			check_right = gridTest2[area[0]+1][area[1]];
-			// console.log("check_right " + check_right);
 		}
 
 		let check_left = undefined;
 		if (!(area[0]-1 < 0)) {
 			check_left = gridTest2[area[0]-1][area[1]];
-			// console.log("check_left " + check_left);
 		}
 
 		let check_down = undefined;
 		if (!(area[1]-1< 0)) {
 			check_down = gridTest2[area[0]][area[1]-1];
-			// console.log("check_down " + check_down);
 		}
 		
 		let check_up = undefined;
 		if (!(area[1]+1 > 18)) {
 			check_up = gridTest2[area[0]][area[1]+1];
-			// console.log("check_up " + check_up);
 		}
 
 		if ((check_right == "")||(check_left == "")||(check_up == "")||(check_down == "")) {
@@ -274,34 +268,29 @@
 		}
 
 		if (check_right == colorCheck1) {
-			// console.log("color Check right true");
-			 if (isCondamnOpposite2([area[0]+1,area[1]],gridTest2) == false) {
+			 if (isCondamnOpposite2([area[0]+1,area[1]],[area[0],area[1]],gridTest2) == false) {
 			 	return false;
 			}
 		}
 		if (check_left == colorCheck1) {
-			// console.log("color Check left true");
-			 if (isCondamnOpposite2([area[0]-1,area[1]],gridTest2) == false) {
+			 if (isCondamnOpposite2([area[0]-1,area[1]],[area[0],area[1]],gridTest2) == false) {
 			 	return false;
 			}
 		}
 		if (check_up == colorCheck1) {
-			// console.log("color Check up true");
-			 if (isCondamnOpposite2([area[0],area[1]+1],gridTest2) == false) {
+			 if (isCondamnOpposite2([area[0],area[1]+1],[area[0],area[1]],gridTest2) == false) {
 			 	return false;
 			}
 		}
 		if (check_down == colorCheck1) {
-			// console.log("color Check down true");
-			 if (isCondamOpposite2([area[0],area[1]-1],gridTest2) == false) {
+			 if (isCondamnOpposite2([area[0],area[1]-1],[area[0],area[1]],gridTest2) == false) {
 			 	return false;
 			}
 		}
 		return true;
 	}
 
-	function directionSuppression (area,directionCondamn) {
-
+	function directionSuppression (area,grid,directionCondamn) {
 		if(directionCondamn[0] == "R") {
 			opposentSuppression([area[0]+1,area[1]],grid);
 		}
@@ -310,11 +299,11 @@
 			opposentSuppression([area[0]-1,area[1]],grid);
 		}
 
-		if(directionCondamn[1] == "U") {
+		if(directionCondamn[2] == "U") {
 			opposentSuppression([area[0],area[1]+1],grid);
 		}
 
-		if(directionCondamn[1] == "D") {
+		if(directionCondamn[3] == "D") {
 			opposentSuppression([area[0],area[1]-1],grid);
 		}
 	}
@@ -324,14 +313,14 @@
 		if (player_active.color == "W") {
 			colorCheck2 ="B"; 
 		}
-
+		
 		let dotSuppress = "white_dot";
 		if (player_active.dot_color == "white_dot") {
 			dotSuppress = "black_dot";
 		}
 
 		document.getElementById("area_" + area[0] + "-" + area[1] ).classList.remove(dotSuppress);
-		grid[area[0]][[1]] = "";
+		grid[area[0]][area[1]] = "";
 
 		let check_right = undefined;
 		if (!(area[0]+1 > 18)) {
@@ -366,6 +355,62 @@
 			 opposentSuppression([area[0],area[1]-1],grid);
 		}
 	}
+
+	function clone(item) {
+    if (!item) { return item; } // null, undefined values check
+
+    var types = [ Number, String, Boolean ], 
+        result;
+
+    // normalizing primitives if someone did new String('aaa'), or new Number('444');
+    types.forEach(function(type) {
+        if (item instanceof type) {
+            result = type( item );
+        }
+    });
+
+    if (typeof result == "undefined") {
+        if (Object.prototype.toString.call( item ) === "[object Array]") {
+            result = [];
+            item.forEach(function(child, index, array) { 
+                result[index] = clone( child );
+            });
+        } else if (typeof item == "object") {
+            // testing that this is DOM
+            if (item.nodeType && typeof item.cloneNode == "function") {
+                var result = item.cloneNode( true );    
+            } else if (!item.prototype) { // check that this is a literal
+                if (item instanceof Date) {
+                    result = new Date(item);
+                } else {
+                    // it is an object literal
+                    result = {};
+                    for (var i in item) {
+                        result[i] = clone( item[i] );
+                    }
+                }
+            } else {
+                // depending what you would like here,
+                // just keep the reference, or create new object
+                if (false && item.constructor) {
+                    // would not advice to do that, reason? Read below
+                    result = new item.constructor();
+                } else {
+                    result = item;
+                }
+            }
+        } else {
+            result = item;
+        }
+    }
+
+    return result;
+}
+
+
+
+
+
 //FIN DU PROGRAMME	
 // }
 

@@ -63,8 +63,8 @@ header {
 #board_game {
 	background: url(img/Blank_Go_board.png) no-repeat;
 	background-size: cover;
-	width: 703px;
-	height: 707px;
+	width: 800px;
+	height: 800px;
 	padding-top: 6px;
 	padding-bottom: 6px;
 	padding-left: 6px;
@@ -73,9 +73,9 @@ header {
 
 .intersection {
 	display: inline-block;
-	border: 1px solid blue;
-	width: 35px;
-	height:  33px;
+	border: 1px solid transparent;
+	width: 40px;
+	height:  37px;
 
 }
 
@@ -85,10 +85,10 @@ header {
 
 .black_dot {
 	background-color: black;
-	border-radius: 15px;
+	border-radius: 25px;
 }
 
 .white_dot {
 	background-color: white;
-	border-radius: 15px;
+	border-radius: 25px;
 }
