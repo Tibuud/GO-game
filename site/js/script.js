@@ -63,10 +63,18 @@ function prepareEventHandlers() {
 			}
 			board_game_areas += `</div>`;
 		}
+		board_game.style.display = "block";
 		board_game.innerHTML = board_game_areas;
+		player_1.capture = 0;
+		player_2.capture = 0;
+		document.getElementById('dot_left').style.display = "block";
+		document.getElementById('dot_right').style.display = "none";
 		notification.innerText = "Au tour de " + player_active.player_name;
+		notification1.innerText = "";
 		pass_button.style.display = "block";
+		pass_button1.style.display = "none";
 		pass_button.addEventListener('click', tourPasse, false);
+		pass_button1.addEventListener('click', tourPasse, false);
 		activationCases();
 
 	}
@@ -85,16 +93,62 @@ function prepareEventHandlers() {
 		} else { player_active = player_1;}
 		compteurTourPasse += 1;
 		if (compteurTourPasse == 2) {
-			notification.innerText = "Fin de la partie ! Comptez vos points," + 
-			player_1.player_name + " a capturé " + player_1.capture + " pions. " + 
-			player_2.player_name + " a capturé " + player_2.capture + " pions.";
+			notification.innerText = "";
+			notification1.innerText = "";
+			notification.innerHTML = 
+			`<div id="info_fin"> Fin de la partie ! Comptez vos points,	<br>
+			${player_1.player_name} a capturé ${player_1.capture} pion(s).<br>
+			(Cliquez sur jouer pour relancer une partie)</div>`;
+			notification1.innerHTML = 
+			`<div id="info_fin"> Fin de la partie ! Comptez vos points,	<br>
+			${player_2.player_name} a capturé ${player_2.capture} pion(s).<br>
+			(Cliquez sur jouer pour relancer une partie)</div>`;
 			pass_button.style.display = "none";
+			pass_button1.style.display = "none";
+			document.getElementById('dot_left').style.display = "none";
+			document.getElementById('dot_right').style.display = "none";
+			grid = [	
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""],
+					["","","","","","","","","","","","","","","","","","",""]
+					];
+
 			for (let u = 0 ; u < 19 ; u++) {
 				for (let h = 0; h < 19 ; h++) {
 					document.getElementById("area_" + u + "-" + h ).removeEventListener('click', phaseDeJeu, false);
 				}
 			}
-		} else {notification.innerText = "Au tour de " + player_active.player_name;}
+		} else if (notification.innerText != "") {
+			document.getElementById('dot_right').style.display = "block";
+			document.getElementById('dot_left').style.display = "none";
+			notification1.innerText = "Au tour de " + player_active.player_name;
+			notification.innerText = "";
+			pass_button.style.display = "none";
+			pass_button1.style.display = "block";
+		} else {
+			document.getElementById('dot_right').style.display = "none";
+			document.getElementById('dot_left').style.display = "block";
+			notification.innerText = "Au tour de " + player_active.player_name;
+			notification1.innerText = "";
+			pass_button1.style.display = "none";
+			pass_button.style.display = "block";
+		}
 		
 	}
 
@@ -112,10 +166,6 @@ function prepareEventHandlers() {
 		clicked_area = [Number(clicked_area[0]),Number(clicked_area[1])];
 		compteurTourPasse = 0;
 
-		// for (let u = 0 ; u < 19 ; u++) {
-		// 	for (let h = 0; h < 19 ; h++) {
-		// 		document.getElementById("area_" + u + "-" + h ).removeEventListener('click', round_game, false);
-		// 	}
 		let directionCondamn = isCondamnOpposition(clicked_area,grid);
 		if(!(isEmpty(clicked_area))) {
 			return alert("Coup impossible");
@@ -136,7 +186,21 @@ function prepareEventHandlers() {
 		} else { player_active = player_1;}
 
 		
-		notification.innerText = "Au tour de " + player_active.player_name;
+		if (notification.innerText != "") {
+			document.getElementById('dot_right').style.display = "block";
+			document.getElementById('dot_left').style.display = "none";
+			notification1.innerText = "Au tour de " + player_active.player_name;
+			notification.innerText = "";
+			pass_button.style.display = "none";
+			pass_button1.style.display = "block";
+		} else {
+			document.getElementById('dot_right').style.display = "none";
+			document.getElementById('dot_left').style.display = "block";
+			notification.innerText = "Au tour de " + player_active.player_name;
+			notification1.innerText = "";
+			pass_button1.style.display = "none";
+			pass_button.style.display = "block";
+		}
 	}
 
 	//On verifie que la case n'est pas déjà occupée.
@@ -340,10 +404,11 @@ function prepareEventHandlers() {
 		if (player_active.dot_color == "white_dot") {
 			dotSuppress = "black_dot";
 		}
-
-		document.getElementById("area_" + area[0] + "-" + area[1] ).classList.remove(dotSuppress);
-		grid[area[0]][area[1]] = "";
-		player_active.capture+=1;
+		if (grid[area[0]][area[1]] != "") {
+			document.getElementById("area_" + area[0] + "-" + area[1] ).classList.remove(dotSuppress);
+			grid[area[0]][area[1]] = "";
+			player_active.capture+=1;
+		}
 
 		let check_right = undefined;
 		if (!(area[0]+1 > 18)) {

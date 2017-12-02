@@ -50,9 +50,10 @@ table {
 /*GENERAL*/
 
 body {
-	color: #FFFFF2;
+	font-family: 'Megrim', cursive;
+	color: #E4E4E5;
 	background-color: #24292E;
-	width: 1200px;
+	width: 1400px;
 	margin: auto;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -64,13 +65,13 @@ body {
 
 h1 {
 	text-align: center;
-	font-family: 'Spectral SC', serif;
+	font-family: 'Megrim', cursive;
 	font-size: 50px;
 	padding-top: 10px;
 	padding-bottom: 30px;
 }
 
-ul {
+nav ul {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -85,8 +86,8 @@ ul {
 button {
 	font-size: 20px;
 	height: 40px;
-	font-family: 'Spectral SC', serif;
-	background-color: #FFFFFF;
+	font-family: 'Megrim', cursive;
+	background-color: #E4E4E5;
 	border-radius: 15px;
 	margin-right: 20px;
 	margin-left: 20px;
@@ -95,54 +96,106 @@ button {
 }
 
 #board_game {
+	display: none;
 	border: green solid 1px;
 	margin: auto;
 	background: url(img/Blank_Go_board.png) no-repeat;
 	background-size: cover;
-	width: 800px;
-	height: 800px;
+	width: 700px;
+	height: 700px;
 	padding-top: 8px;
 	padding-bottom: 6px;
 	padding-left: 7px;
+	-webkit-box-shadow: 0px 0px 60px 6px rgba(0,0,0,1);
+	-moz-box-shadow: 0px 0px 60px 6px rgba(0,0,0,1);
+	box-shadow: 0px 0px 60px 6px rgba(0,0,0,1);
 
 }
 
 .intersection {
 	display: inline-block;
 	border: 1px solid transparent;
+	width: 35px;
+	height: 35px;
+
+}
+
+.intersection_menu {
+	display: none;
+	border: 1px solid transparent;
 	width: 40px;
 	height: 40px;
+	margin: auto;
 
 }
 .container {
-	position: relative;
+/*	position: relative;*/
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+
 }
 
-#notification {
-	position: absolute;
+#notification, #notification1 {
+	/*position: absolute;
 	left: -100px;
-	top: 250px;
+	top: 250px;*/
+	width: 340px;
 	text-align: center;
 	margin: auto;
+	margin-bottom: 50px;
+	margin-top: 235px;
 	font-size: 30px;
+	height: 50px;
 }
 
+
 .black_dot {
-	background-color: black;
+	background: rgba(44,44,44,1);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(44,44,44,1) 16%, rgba(19,19,19,1) 45%, rgba(19,19,19,1) 54%, rgba(19,19,19,1) 82%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(16%, rgba(44,44,44,1)), color-stop(45%, rgba(19,19,19,1)), color-stop(54%, rgba(19,19,19,1)), color-stop(82%, rgba(19,19,19,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(44,44,44,1) 16%, rgba(19,19,19,1) 45%, rgba(19,19,19,1) 54%, rgba(19,19,19,1) 82%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(44,44,44,1) 16%, rgba(19,19,19,1) 45%, rgba(19,19,19,1) 54%, rgba(19,19,19,1) 82%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(44,44,44,1) 16%, rgba(19,19,19,1) 45%, rgba(19,19,19,1) 54%, rgba(19,19,19,1) 82%);
+	background: radial-gradient(ellipse at center, rgba(44,44,44,1) 16%, rgba(19,19,19,1) 45%, rgba(19,19,19,1) 54%, rgba(19,19,19,1) 82%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c2c2c', endColorstr='#131313', GradientType=1 );
 	border-radius: 25px;
+	-webkit-box-shadow: 0px 0px 10px 2px rgba(112,87,37,1);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(112,87,37,1);
+	box-shadow: 0px 0px 10px 2px rgba(112,87,37,1);
 }
 
 .white_dot {
-	background-color: white;
+	background: rgba(226,226,226,1);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 84%, rgba(254,254,254,1) 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(226,226,226,1)), color-stop(84%, rgba(254,254,254,1)), color-stop(100%, rgba(254,254,254,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 84%, rgba(254,254,254,1) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 84%, rgba(254,254,254,1) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 84%, rgba(254,254,254,1) 100%);
+	background: radial-gradient(ellipse at center, rgba(226,226,226,1) 0%, rgba(254,254,254,1) 84%, rgba(254,254,254,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=1 );
 	border-radius: 25px;
+	-webkit-box-shadow: 0px 0px 10px 2px rgba(112,87,37,1);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(112,87,37,1);
+	box-shadow: 0px 0px 10px 2px rgba(112,87,37,1);
 }
 
-#pass_button {
-	position: absolute;
+#dot_right, #dot_left {
+	-webkit-box-shadow: 0px 0px 10px 2px rgba(20,40,61,1);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(20,40,61,1);
+	box-shadow: 0px 0px 10px 2px rgba(20,40,61,1);
+} 
+
+
+#pass_button1, #pass_button {
+/*	position: absolute;
 	left: -100px;
-	top: 300px;
+	top: 300px;*/
 	margin: auto;
 	display: none;
+	margin-top: 50px;
 }
 
 .lignes {
@@ -151,4 +204,27 @@ button {
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
+}
+
+footer {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 15px;
+	font-family: 'Amatic SC', cursive;
+}
+
+footer a {
+	text-decoration: none;
+	color: #E4E4E5;
+}
+
+#info_fin {
+	margin: auto;
+	margin-top: 200px;
+	color: #E4E4E5;
+	font-size: 30px;
+	margin-left: 20px;
+	margin-right: 20px;
+	text-align: center;
+	font-weight: bolder;
 }
