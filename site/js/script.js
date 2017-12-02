@@ -33,8 +33,8 @@ function prepareEventHandlers() {
 	let board_game = document.getElementById('board_game');
 
 	class Player {
-		constructor(player_name="unknow", color,dot_color,score=0) {
-			this.player_name = player_name;
+		constructor(color,dot_color,score=0) {
+			this.player_name = "";
 			this.score = score;
 			this.capture = 0;
 			this.color = color;
@@ -42,8 +42,8 @@ function prepareEventHandlers() {
 		}
 	}
 
-	let player_1 = new Player("player_1", "B","black_dot");
-	let player_2 = new Player("player_2", "W","white_dot",7.5);
+	let player_1 = new Player("B","black_dot");
+	let player_2 = new Player( "W","white_dot",7.5);
 	let player_active = player_1;
 	let compteurTourPasse = 0;
 	let notification = document.getElementById('notification');
@@ -52,6 +52,16 @@ function prepareEventHandlers() {
 	button.addEventListener('click', creationPartie, false);
 
 	function creationPartie() {
+
+		player_1.player_name = prompt("Joueur 1, quel est votre nom ?");
+		if(player_1.player_name == "") {
+			player_1.player_name = "Player Unknow";
+		}
+		player_2.player_name = prompt("Joueur 2, quel est votre nom ?");
+		if(player_2.player_name == "") {
+			player_2.player_name = "Player Unknow 2";
+		}
+
 		let board_game_areas = "";
 		//Création du plateau (une div avec une classe et un id à chaque intersection)
 		// let game_area = [];
@@ -168,11 +178,11 @@ function prepareEventHandlers() {
 
 		let directionCondamn = isCondamnOpposition(clicked_area,grid);
 		if(!(isEmpty(clicked_area))) {
-			return alert("Coup impossible");
+			return showSnackbar();
 		} else if (directionCondamn != "    " ) {
 			directionSuppression(clicked_area,grid,directionCondamn);
 		} else if (isCondamn(clicked_area,grid)) {
-			return alert("Coup impossible");
+			return showSnackbar();
 		}
 
 
@@ -445,55 +455,66 @@ function prepareEventHandlers() {
 	}
 
 	function clone(item) {
-    if (!item) { return item; } // null, undefined values check
+	    if (!item) { return item; } // null, undefined values check
 
-    var types = [ Number, String, Boolean ], 
-        result;
+	    var types = [ Number, String, Boolean ], 
+	        result;
 
-    // normalizing primitives if someone did new String('aaa'), or new Number('444');
-    types.forEach(function(type) {
-        if (item instanceof type) {
-            result = type( item );
-        }
-    });
+	    // normalizing primitives if someone did new String('aaa'), or new Number('444');
+	    types.forEach(function(type) {
+	        if (item instanceof type) {
+	            result = type( item );
+	        }
+	    });
 
-    if (typeof result == "undefined") {
-        if (Object.prototype.toString.call( item ) === "[object Array]") {
-            result = [];
-            item.forEach(function(child, index, array) { 
-                result[index] = clone( child );
-            });
-        } else if (typeof item == "object") {
-            // testing that this is DOM
-            if (item.nodeType && typeof item.cloneNode == "function") {
-                var result = item.cloneNode( true );    
-            } else if (!item.prototype) { // check that this is a literal
-                if (item instanceof Date) {
-                    result = new Date(item);
-                } else {
-                    // it is an object literal
-                    result = {};
-                    for (var i in item) {
-                        result[i] = clone( item[i] );
-                    }
-                }
-            } else {
-                // depending what you would like here,
-                // just keep the reference, or create new object
-                if (false && item.constructor) {
-                    // would not advice to do that, reason? Read below
-                    result = new item.constructor();
-                } else {
-                    result = item;
-                }
-            }
-        } else {
-            result = item;
-        }
-    }
+	    if (typeof result == "undefined") {
+	        if (Object.prototype.toString.call( item ) === "[object Array]") {
+	            result = [];
+	            item.forEach(function(child, index, array) { 
+	                result[index] = clone( child );
+	            });
+	        } else if (typeof item == "object") {
+	            // testing that this is DOM
+	            if (item.nodeType && typeof item.cloneNode == "function") {
+	                var result = item.cloneNode( true );    
+	            } else if (!item.prototype) { // check that this is a literal
+	                if (item instanceof Date) {
+	                    result = new Date(item);
+	                } else {
+	                    // it is an object literal
+	                    result = {};
+	                    for (var i in item) {
+	                        result[i] = clone( item[i] );
+	                    }
+	                }
+	            } else {
+	                // depending what you would like here,
+	                // just keep the reference, or create new object
+	                if (false && item.constructor) {
+	                    // would not advice to do that, reason? Read below
+	                    result = new item.constructor();
+	                } else {
+	                    result = item;
+	                }
+	            }
+	        } else {
+	            result = item;
+	        }
+	    }
 
-    return result;
-}
+	    return result;
+	}
+
+	function showSnackbar() {
+	    // Get the snackbar DIV
+	    var x = document.getElementById("snackbar")
+
+	    // Add the "show" class to DIV
+	    x.className = "show";
+
+	    // After 3 seconds, remove the show class from DIV
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
 
 
 
